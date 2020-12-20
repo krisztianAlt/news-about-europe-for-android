@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">News About Europe for Android</string>
-    <string name="Button2Text">Gombocska</string>
+    <string name="Button2Text">Change API Key</string>
+    <string name="closeAppButtonText">Close App</string>
+    <string name="poweredByText">Powered by <strong><u>News API</u></strong></string>
+    <string name="saveNewAPIKeyText">Save new API key</string>
+    <string name="hint">Type here new API key</string>
 </resources>
