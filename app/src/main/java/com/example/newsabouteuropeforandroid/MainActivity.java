@@ -12,23 +12,23 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String TAG = MainActivity.class.getSimpleName();
-    private Button changeAPIKeyButton;
-    private Button closeAppButton;
+    private static String TAG = MainActivity.class.getSimpleName();
+    private static Button changeAPIKeyButton;
+    private static Button closeAppButton;
+    private static TextView newsAPILink;
+
+    public static SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.e(TAG, "We are in MAIN");
 
         // Check that api key exists or not:
-        SharedPreferences sharedPreferences =  this.getPreferences(MODE_PRIVATE);
+        sharedPreferences =  this.getPreferences(MODE_PRIVATE);
         if (sharedPreferences.contains("apiKey")){
-
             changeAPIKeyButton = findViewById(R.id.changeAPIKey);
             closeAppButton = findViewById(R.id.closeApp);
-            Log.e(TAG, "API KEY IS OKAY" );
 
             changeAPIKeyButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -36,11 +36,10 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), HandleAPIKeyActivity.class);
                     intent.putExtra("purpose", "change");
                     startActivity(intent);
-                    Log.e(TAG, "CHANGE API KEY" );
                 }
             });
 
-            TextView newsAPILink = findViewById(R.id.poweredBy);
+            newsAPILink = findViewById(R.id.poweredBy);
             newsAPILink.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -64,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), HandleAPIKeyActivity.class);
             intent.putExtra("purpose", "add");
             startActivity(intent);
-            Log.e(TAG, "GET API KEY FROM USER" );
         };
 
     }
