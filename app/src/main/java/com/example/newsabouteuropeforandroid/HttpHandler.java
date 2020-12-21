@@ -118,15 +118,15 @@ public class HttpHandler {
     }*/
 
     public String checkAPIKey(String newAPIKey) {
-        String testAPIKey = "3ed83aa5f9564c91b68b08d31a3e7f29";
+        // String testAPIKey = "3ed83aa5f9564c91b68b08d31a3e7f29";
         String countryName = "hungary";
         String newsAgencyName = "reuters";
         String urlString = "https://newsapi.org/v2/everything?q=\"" + countryName +
                 "\"&sources=" + newsAgencyName +
-                "&sortBy=relevancy&apiKey=" + testAPIKey;
+                "&sortBy=relevancy&apiKey=" + newAPIKey;
         String response = null;
         try {
-            Log.e(TAG, "API calling starts... URL string: " + urlString);
+            // URL connection:
             URL url = new URL(urlString);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
@@ -138,16 +138,22 @@ public class HttpHandler {
             conn.setDoInput(true);
             conn.connect();
 
-            Log.e(TAG, "Connected. Input stream starts...");
-            try {
-                // Read the response:
-                InputStream in = new BufferedInputStream(conn.getInputStream());
-                Log.e(TAG, "Input stream buffered. Conversion starts...");
-                response = convertStreamToString(in);
-                in.close();
-            } finally {
+            // Read the response:
+            if (conn.getResponseCode() >= HttpURLConnection.HTTP_BAD_REQUEST){
+                InputStream errorStream = new BufferedInputStream(conn.getErrorStream());
+                response = convertStreamToString(errorStream);
+                errorStream.close();
                 conn.disconnect();
+            } else {
+                try {
+                    InputStream in = new BufferedInputStream(conn.getInputStream());
+                    response = convertStreamToString(in);
+                    in.close();
+                } finally {
+                    conn.disconnect();
+                }
             }
+            Log.e(TAG, response);
         } catch (MalformedURLException ex) {
             Log.e(TAG, "MalformedURLException: " + ex.getMessage());
         } catch (ProtocolException ex) {
