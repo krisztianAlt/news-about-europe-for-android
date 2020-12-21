@@ -3,6 +3,7 @@ package com.example.newsabouteuropeforandroid;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -42,8 +43,7 @@ public class HandleAPIKeyActivity extends AppCompatActivity {
         if (purpose.equals("change")) {
             TextView currentAPIKey = findViewById(R.id.currentAPIKey);
             currentAPIKey.setVisibility(View.VISIBLE);
-            SharedPreferences sharedPreferences =  this.getPreferences(MODE_PRIVATE);
-            currentAPIKey.setText(sharedPreferences.getString ("apiKey", "api key"));
+            currentAPIKey.setText("Current API key: \n" + MainActivity.sharedPreferences.getString ("apiKey", "api key"));
         }
 
         if (apiKeyFromUser != null) {
@@ -52,6 +52,16 @@ public class HandleAPIKeyActivity extends AppCompatActivity {
         }
 
         savingSucceeded = false;
+
+        Button visitNewsAPIButton = findViewById(R.id.visitNewsAPIWebsite);
+        visitNewsAPIButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(android.content.Intent.ACTION_VIEW,
+                        Uri.parse("https://newsapi.org/pricing"));
+                startActivity(i);
+            }
+        });
 
         Button submitButton = findViewById(R.id.saveNewAPIKey);
         submitButton.setOnClickListener(new View.OnClickListener() {
@@ -82,32 +92,50 @@ public class HandleAPIKeyActivity extends AppCompatActivity {
             HttpHandler sh = new HttpHandler();
             String jsonStr = sh.checkAPIKey(apiKeyFromUser);
 
-            Log.e(TAG, "Response from url: " + jsonStr);
             if (jsonStr != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(jsonStr);
                     final String status = jsonObj.get("status").toString();
-                    Log.e(TAG, "ANSWER FROM REST API: " + status);
+                    String messageToUser;
+                    if (status.equals("ok")) {
+                        SharedPreferences.Editor editor = MainActivity.sharedPreferences.edit();
+                        editor.putString("apiKey", apiKeyFromUser);
+                        editor.commit();
+                        messageToUser = "API key is correct and saved.";
+                        savingSucceeded = true;
+                    } else {
+                        messageToUser = jsonObj.get("message").toString();
+                    }
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             Toast.makeText(getApplicationContext(),
-                                    status,
+                                    messageToUser,
                                     Toast.LENGTH_LONG).show();
                         }
                     });
-
-                    if (status.equals("ok")) {
-                        Log.e(TAG, "HERE COMES PUT API KEY TO SHARED PREFERENCES");
-                        savingSucceeded = true;
-                    }
-
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getApplicationContext(),
+                                    "Json parsing error: " + e.getMessage(),
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    });
                 }
 
             } else {
                 Log.e(TAG, "Couldn't get json from server.");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(),
+                                "Couldn't get json from server.",
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
             }
 
             return null;
