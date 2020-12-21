@@ -5,4 +5,6 @@
     <string name="poweredByText">Powered by <strong><u>News API</u></strong></string>
     <string name="saveNewAPIKeyText">Save new API key</string>
     <string name="hint">Type here new API key</string>
+    <string name="getApiKeyInfoText">In order to get article datas, you must require an API key from News API. Please, visit News API\'s website, select the totally free \"Developer\" plan (or any other, but those are not free), and register for the API key. You will get it in e-mail. Please, type the key below!</string>
+    <string name="visitNewsAPIWebsiteButtonText">Visit News API</string>
 </resources>
