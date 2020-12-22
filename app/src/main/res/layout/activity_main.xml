@@ -12,67 +12,79 @@
         android:layout_height="wrap_content"
         android:text="@string/usageInfo"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.027" />
 
     <RadioGroup
-        android:layout_width="125dp"
-        android:layout_height="171dp"
+        android:id="@+id/radioGroup"
+        android:layout_width="113dp"
+        android:layout_height="172dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.069"
+        app:layout_constraintHorizontal_bias="0.073"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/usageInfo"
-        app:layout_constraintVertical_bias="0.037">
+        app:layout_constraintVertical_bias="0.282">
 
         <RadioButton
-            android:id="@+id/radioButton"
-            android:layout_width="match_parent"
+            android:id="@+id/bbcNewsRadioButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/bbcNewsRadioButtonText" />
 
         <RadioButton
-            android:id="@+id/radioButton2"
-            android:layout_width="match_parent"
+            android:id="@+id/cbcNewsRadioButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/cbcNewsRadioButtonText" />
 
         <RadioButton
-            android:id="@+id/radioButton3"
-            android:layout_width="match_parent"
+            android:id="@+id/cnnRadioButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/cnnRadioButtonText" />
 
         <RadioButton
-            android:id="@+id/radioButton4"
-            android:layout_width="match_parent"
+            android:id="@+id/independentRadioButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/independentRadioButtonText" />
 
         <RadioButton
-            android:id="@+id/radioButton5"
-            android:layout_width="match_parent"
+            android:id="@+id/reutersRadioButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/reutersRadioButtonText"
-            android:checked="true" />
+            android:checked="true"
+            android:text="@string/reutersRadioButtonText" />
 
         <RadioButton
-            android:id="@+id/radioButton6"
-            android:layout_width="match_parent"
+            android:id="@+id/timeRadioButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/timeRadioButtonText" />
 
     </RadioGroup>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/countryListView"
+        android:layout_width="154dp"
+        android:layout_height="330dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/border"
+        android:scrollbars="vertical"
+        app:layout_constraintStart_toEndOf="@+id/radioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/usageInfo" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/closeApp"
@@ -82,11 +94,11 @@
         android:text="@string/closeAppButtonText"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintHorizontal_bias="0.901"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usageInfo"
-        app:layout_constraintVertical_bias="0.9" />
+        app:layout_constraintTop_toBottomOf="@+id/countryListView"
+        app:layout_constraintVertical_bias="0.546" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/changeAPIKey"
@@ -100,20 +112,18 @@
         app:layout_constraintHorizontal_bias="0.132"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usageInfo"
-        app:layout_constraintVertical_bias="0.9" />
+        app:layout_constraintTop_toBottomOf="@+id/countryListView"
+        app:layout_constraintVertical_bias="0.543" />
 
     <TextView
         android:id="@+id/poweredBy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="304dp"
         android:text="@string/poweredByText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usageInfo"
-        app:layout_constraintVertical_bias="0.902" />
+        app:layout_constraintTop_toBottomOf="@+id/countryListView"
+        app:layout_constraintVertical_bias="0.867" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
