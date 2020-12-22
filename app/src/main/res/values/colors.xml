@@ -8,5 +8,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="saveNewAPIKeyButtonBackground">#46c757</color>
-    <color name="exitButtonBackgroundColor">#e81515</color>
+    <color name="exitButtonBackgroundColor">#707173</color>
 </resources>

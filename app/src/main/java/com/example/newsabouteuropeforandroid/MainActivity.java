@@ -52,9 +52,11 @@ public class MainActivity extends AppCompatActivity {
             closeAppButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    moveTaskToBack(true);
+                    /* moveTaskToBack(true);
                     android.os.Process.killProcess(android.os.Process.myPid());
-                    System.exit(1);
+                    System.exit(1); */
+                    MainActivity.this.finish();
+                    System.exit(0);
                 }
             });
 
