@@ -8,15 +8,19 @@ public class CountryListData {
         this.countryName = countryName;
         this.imgId = imgId;
     }
+
     public String getCountryName() {
         return countryName;
     }
+
     public void setCountryName(String countryName) {
         this.countryName = countryName;
     }
+
     public int getImgId() {
         return imgId;
     }
+
     public void setImgId(int imgId) {
         this.imgId = imgId;
     }
