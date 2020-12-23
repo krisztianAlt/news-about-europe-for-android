@@ -14,4 +14,6 @@
     <string name="independentRadioButtonText">Independent</string>
     <string name="reutersRadioButtonText">Reuters</string>
     <string name="timeRadioButtonText">Time</string>
+    <string name="backToCountryListButtonText">Back to Country Selection</string>
+    <string name="articleListIntroText">Please, click an article title in the list, then the article will be opened in browser. You can add the article to your favourites with the button at the end of the article\'s line.</string>
 </resources>
