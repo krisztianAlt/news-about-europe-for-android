@@ -17,7 +17,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     private static String TAG = MainActivity.class.getSimpleName();
-    // private static RecyclerView countryListView;
+    private static RecyclerView countryListView;
     private static Button changeAPIKeyButton;
     private static Button closeAppButton;
     private static TextView newsAPILink;
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
             new CountryListData("Bulgaria", R.drawable.bg),
             new CountryListData("Croatia", R.drawable.hr),
             new CountryListData("Cyprus", R.drawable.cy),
-            new CountryListData("Czech-Republic", R.drawable.cz),
+            new CountryListData("Czech Republic", R.drawable.cz),
             new CountryListData("Denmark", R.drawable.dk),
             new CountryListData("Estonia", R.drawable.ee),
             new CountryListData("Finland", R.drawable.fi),
@@ -81,18 +81,22 @@ public class MainActivity extends AppCompatActivity {
             changeAPIKeyButton = findViewById(R.id.changeAPIKey);
             closeAppButton = findViewById(R.id.closeApp);
 
-            RecyclerView countryListView = (RecyclerView) findViewById(R.id.countryListView);
+            countryListView = (RecyclerView) findViewById(R.id.countryListView);
             CountryListAdapter adapter = new CountryListAdapter(countryListData);
-            countryListView.setHasFixedSize(true);
-            countryListView.setLayoutManager(new LinearLayoutManager(this));
-            countryListView.setAdapter(adapter);
+            try {
+                countryListView.setHasFixedSize(true);
+                countryListView.setLayoutManager(new LinearLayoutManager(this));
+                countryListView.setAdapter(adapter);
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage());
+            }
 
             /* Get selected radio button:
             int radioButtonID = radioButtonGroup.getCheckedRadioButtonId();
             View radioButton = radioButtonGroup.findViewById(radioButtonID);
             int idx = radioButtonGroup.indexOfChild(radioButton);
             RadioButton r = (RadioButton) radioButtonGroup.getChildAt(idx);
-            String selectedtext = r.getText().toString(); */
+            String selectedText = r.getText().toString(); */
 
             changeAPIKeyButton.setOnClickListener(new View.OnClickListener() {
                 @Override
