@@ -12,11 +12,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     private static String TAG = MainActivity.class.getSimpleName();
+    private static RadioGroup newsAgencyRadioButtonGroup;
     private static RecyclerView countryListView;
     private static Button changeAPIKeyButton;
     private static Button closeAppButton;
@@ -78,11 +80,12 @@ public class MainActivity extends AppCompatActivity {
 
         sharedPreferences =  this.getPreferences(MODE_PRIVATE); // Checking that api key exists or not
         if (sharedPreferences.contains("apiKey")){
+            newsAgencyRadioButtonGroup = findViewById(R.id.radioGroup);
             changeAPIKeyButton = findViewById(R.id.changeAPIKey);
             closeAppButton = findViewById(R.id.closeApp);
 
             countryListView = (RecyclerView) findViewById(R.id.countryListView);
-            CountryListAdapter adapter = new CountryListAdapter(countryListData);
+            CountryListAdapter adapter = new CountryListAdapter(countryListData, newsAgencyRadioButtonGroup, this);
             try {
                 countryListView.setHasFixedSize(true);
                 countryListView.setLayoutManager(new LinearLayoutManager(this));
@@ -90,13 +93,6 @@ public class MainActivity extends AppCompatActivity {
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage());
             }
-
-            /* Get selected radio button:
-            int radioButtonID = radioButtonGroup.getCheckedRadioButtonId();
-            View radioButton = radioButtonGroup.findViewById(radioButtonID);
-            int idx = radioButtonGroup.indexOfChild(radioButton);
-            RadioButton r = (RadioButton) radioButtonGroup.getChildAt(idx);
-            String selectedText = r.getText().toString(); */
 
             changeAPIKeyButton.setOnClickListener(new View.OnClickListener() {
                 @Override
