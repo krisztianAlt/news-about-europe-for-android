@@ -1,25 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/articleListRelativeLayout"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    >
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <TextView
+        android:id="@+id/articleTitle"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true" />
+
+    <TextView
+        android:id="@+id/author"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/articleTitle" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/author" />
 
     <ImageView
-        android:id="@+id/countryFlag"
+        android:id="@+id/addFavorites"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:contentDescription="Icon"
-        android:layout_marginLeft="3dp" />
-
-    <TextView
-        android:id="@+id/countryName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="3dp"
-        android:layout_toRightOf="@id/countryFlag"
-        android:textSize="15dp"
-        />
+        android:layout_toRightOf="@id/date"
+        android:src="@drawable/favorite_icon"/>
 
 </RelativeLayout>
