@@ -86,10 +86,10 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/closeApp"
-        android:layout_width="106dp"
-        android:layout_height="33dp"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
         android:layout_marginRight="16dp"
-        android:background="@color/exitButtonBackgroundColor"
+        android:background="@drawable/rounded_button_grey"
         android:text="@string/closeAppButtonText"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/poweredBy"
@@ -97,11 +97,27 @@
         app:layout_constraintTop_toBottomOf="@+id/countryListView" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:text="@string/favorites"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/poweredBy"
+        app:layout_constraintEnd_toStartOf="@+id/closeApp"
+        app:layout_constraintStart_toEndOf="@+id/changeAPIKey"
+        app:layout_constraintTop_toBottomOf="@+id/countryListView"
+        android:background="@drawable/rounded_button"/>
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/changeAPIKey"
-        android:layout_width="133dp"
+        android:layout_width="wrap_content"
         android:layout_height="34dp"
         android:layout_marginLeft="16dp"
-        android:background="@color/purple_500"
+        android:background="@drawable/rounded_button"
         android:text="@string/Button2Text"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/poweredBy"
