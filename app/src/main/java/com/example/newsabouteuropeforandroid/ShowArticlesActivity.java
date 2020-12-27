@@ -88,7 +88,12 @@ public class ShowArticlesActivity extends AppCompatActivity {
                         for (int i = 0; i < articles.length(); i++) {
                             JSONObject n = articles.getJSONObject(i);
                             String title = n.getString("title");
-                            String author = n.getString("author");
+                            String author;
+                            if (!n.getString("author").equals("null")) {
+                                author = n.getString("author");
+                            } else {
+                                author = "not signed";
+                            }
                             String url = n.getString("url");
                             String date = n.getString("publishedAt").substring(0, 10);
                             ArticleListData newArticle = new ArticleListData(title, author, url, date);
