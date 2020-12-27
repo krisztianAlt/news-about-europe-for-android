@@ -18,7 +18,8 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     private static String TAG = MainActivity.class.getSimpleName();
-    private static RadioGroup newsAgencyRadioButtonGroup;
+    public static RadioGroup newsAgencyRadioButtonGroup;
+    public static int checkedRadioButtonID = 2131231013;
     private static RecyclerView countryListView;
     private static Button changeAPIKeyButton;
     private static Button closeAppButton;
@@ -81,11 +82,12 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences =  this.getPreferences(MODE_PRIVATE); // Checking that api key exists or not
         if (sharedPreferences.contains("apiKey")){
             newsAgencyRadioButtonGroup = findViewById(R.id.radioGroup);
+            newsAgencyRadioButtonGroup.check(checkedRadioButtonID);
             changeAPIKeyButton = findViewById(R.id.changeAPIKey);
             closeAppButton = findViewById(R.id.closeApp);
 
             countryListView = (RecyclerView) findViewById(R.id.countryListView);
-            CountryListAdapter adapter = new CountryListAdapter(countryListData, newsAgencyRadioButtonGroup, this);
+            CountryListAdapter adapter = new CountryListAdapter(countryListData, this);
             try {
                 countryListView.setHasFixedSize(true);
                 countryListView.setLayoutManager(new LinearLayoutManager(this));

@@ -3,6 +3,7 @@ package com.example.newsabouteuropeforandroid;
 import android.app.Activity;
 import android.content.Intent;
 import android.service.voice.VoiceInteractionSession;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,15 +17,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
 
+import static com.example.newsabouteuropeforandroid.MainActivity.newsAgencyRadioButtonGroup;
+
 public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.ViewHolder>{
+
     private CountryListData[] countryListData;
-    private RadioGroup newsAgencyRadioButtonGroup;
     private Activity mainActivity;
 
     // RecyclerView recyclerView;
-    public CountryListAdapter(CountryListData[] listData, RadioGroup newsAgencyRadioButtonGroup, Activity main) {
+    public CountryListAdapter(CountryListData[] listData, Activity main) {
         this.countryListData = listData;
-        this.newsAgencyRadioButtonGroup = newsAgencyRadioButtonGroup;
         this.mainActivity = main;
     }
 
@@ -51,6 +53,7 @@ public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.
                 int idx = newsAgencyRadioButtonGroup.indexOfChild(radioButton);
                 RadioButton r = (RadioButton) newsAgencyRadioButtonGroup.getChildAt(idx);
                 String selectedAgency = r.getText().toString();
+                MainActivity.checkedRadioButtonID = radioButtonID;
 
                 // Start article listing:
                 ShowArticlesActivity.updateActivity(mainActivity);
