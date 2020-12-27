@@ -3,29 +3,24 @@ package com.example.newsabouteuropeforandroid;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = MainActivity.class.getSimpleName();
     public static RadioGroup newsAgencyRadioButtonGroup;
-    public static int checkedRadioButtonID = 2131231013;
-    private static RecyclerView countryListView;
-    private static Button changeAPIKeyButton;
-    private static Button closeAppButton;
-    private static TextView newsAPILink;
+    public static int checkedRadioButtonID;
     public static SharedPreferences sharedPreferences;
-    private static CountryListData[] countryListData = new CountryListData[]{
+    private static final CountryListData[] countryListData = new CountryListData[]{
             new CountryListData("Albania", R.drawable.al),
             new CountryListData("Andorra", R.drawable.ad),
             new CountryListData("Austria", R.drawable.at),
@@ -82,11 +77,18 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences =  this.getPreferences(MODE_PRIVATE); // Checking that api key exists or not
         if (sharedPreferences.contains("apiKey")){
             newsAgencyRadioButtonGroup = findViewById(R.id.radioGroup);
-            newsAgencyRadioButtonGroup.check(checkedRadioButtonID);
-            changeAPIKeyButton = findViewById(R.id.changeAPIKey);
-            closeAppButton = findViewById(R.id.closeApp);
+            if (checkedRadioButtonID != 0) {
+                newsAgencyRadioButtonGroup.check(checkedRadioButtonID);
+            } else {
+                // Default setting (when app starts):
+                RadioButton reutersRadioButton = findViewById(R.id.reutersRadioButton);
+                reutersRadioButton.setChecked(true);
+            }
 
-            countryListView = (RecyclerView) findViewById(R.id.countryListView);
+            Button changeAPIKeyButton = findViewById(R.id.changeAPIKey);
+            Button closeAppButton = findViewById(R.id.closeApp);
+
+            RecyclerView countryListView = (RecyclerView) findViewById(R.id.countryListView);
             CountryListAdapter adapter = new CountryListAdapter(countryListData, this);
             try {
                 countryListView.setHasFixedSize(true);
@@ -105,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-            newsAPILink = findViewById(R.id.poweredBy);
+            TextView newsAPILink = findViewById(R.id.poweredBy);
             newsAPILink.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

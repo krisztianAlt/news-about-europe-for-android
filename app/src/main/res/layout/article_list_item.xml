@@ -12,13 +12,15 @@
         android:id="@+id/articleTitle"
         android:layout_height="wrap_content"
         android:layout_weight="0.35"
-        android:layout_width="0dp" />
+        android:layout_width="0dp"
+        android:layout_marginRight="5dp"/>
 
     <TextView
         android:id="@+id/author"
         android:layout_width="0dp"
         android:layout_weight="0.20"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp" />
 
     <TextView
         android:id="@+id/date"

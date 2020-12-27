@@ -2,21 +2,17 @@ package com.example.newsabouteuropeforandroid;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.service.voice.VoiceInteractionSession;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewManager;
-import android.view.ViewParent;
 import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import androidx.recyclerview.widget.RecyclerView;
 
+import static com.example.newsabouteuropeforandroid.MainActivity.checkedRadioButtonID;
 import static com.example.newsabouteuropeforandroid.MainActivity.newsAgencyRadioButtonGroup;
 
 public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.ViewHolder>{
@@ -53,7 +49,7 @@ public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.
                 int idx = newsAgencyRadioButtonGroup.indexOfChild(radioButton);
                 RadioButton r = (RadioButton) newsAgencyRadioButtonGroup.getChildAt(idx);
                 String selectedAgency = r.getText().toString();
-                MainActivity.checkedRadioButtonID = radioButtonID;
+                checkedRadioButtonID = radioButtonID;
 
                 // Start article listing:
                 ShowArticlesActivity.updateActivity(mainActivity);

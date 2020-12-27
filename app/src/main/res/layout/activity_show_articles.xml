@@ -59,7 +59,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.35"
             android:text="@string/articleListHeader1"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_marginRight="5dp"/>
 
         <TextView
             android:id="@+id/articleListHeaderAuthor"
@@ -67,7 +68,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.20"
             android:text="@string/articleListHeader2"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:layout_marginRight="5dp"/>
 
         <TextView
             android:id="@+id/articleListHeaderDate"
