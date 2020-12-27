@@ -66,13 +66,6 @@ public class ShowArticlesActivity extends AppCompatActivity {
         private ArrayList<ArticleListData> articleListDatas = new ArrayList<>();
 
         @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            Toast.makeText(ShowArticlesActivity.this,"Data is " +
-                    "downloading", Toast.LENGTH_LONG).show();
-        }
-
-        @Override
         protected Void doInBackground(Void... arg0) {
             HttpHandler sh = new HttpHandler();
             String jsonStr = sh.getArticlesFromAPI(agencyName, countryName);
@@ -153,15 +146,27 @@ public class ShowArticlesActivity extends AppCompatActivity {
             listToSort.sort((l1, l2) -> l2.getDate().compareTo(l1.getDate()));
 
             // Listing in UI:
-            articleListView = (RecyclerView) findViewById(R.id.articleListView);
-            ArticleListAdapter adapter = new ArticleListAdapter(listToSort, ShowArticlesActivity.this);
-            try {
-                articleListView.setHasFixedSize(true);
-                articleListView.setLayoutManager(new LinearLayoutManager(ShowArticlesActivity.this));
-                articleListView.setAdapter(adapter);
-            } catch (Exception e) {
-                Log.e(TAG, e.getMessage());
+            if (listToSort.size() > 0){
+                articleListView = (RecyclerView) findViewById(R.id.articleListView);
+                ArticleListAdapter adapter = new ArticleListAdapter(listToSort, ShowArticlesActivity.this);
+                try {
+                    articleListView.setHasFixedSize(true);
+                    articleListView.setLayoutManager(new LinearLayoutManager(ShowArticlesActivity.this));
+                    articleListView.setAdapter(adapter);
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                }
+            } else {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(),
+                                "No articles. Please, try another news agency or country!",
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
             }
+
 
             // sort news by date
             // Collections.sort(newsList, new MapComparator("date"));
