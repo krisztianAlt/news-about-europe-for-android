@@ -69,8 +69,7 @@ public class ShowArticlesActivity extends AppCompatActivity {
         protected Void doInBackground(Void... arg0) {
             HttpHandler sh = new HttpHandler();
             String jsonStr = sh.getArticlesFromAPI(agencyName, countryName);
-
-            Log.e(TAG, "Response from url: " + jsonStr);
+            
             if (jsonStr != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(jsonStr);
@@ -166,26 +165,6 @@ public class ShowArticlesActivity extends AppCompatActivity {
                     }
                 });
             }
-
-
-            // sort news by date
-            // Collections.sort(newsList, new MapComparator("date"));
-
-            /*final ListAdapter adapter = new SimpleAdapter(ShowNewsActivity.this, newsList,
-                    R.layout.news_list_item, new String[]{ "title","author", "date", "newsUrl"},
-                    new int[]{R.id.newsTitle, R.id.author, R.id.date, R.id.newsUrl});
-            newsListView.setAdapter(adapter);
-
-            newsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    HashMap<String, String> selectedCountry = (HashMap<String, String>) adapter.getItem(position);
-                    String url = selectedCountry.get("newsUrl");
-                    Intent i = new Intent(android.content.Intent.ACTION_VIEW,
-                            Uri.parse(url));
-                    startActivity(i);
-                }
-            });*/
         }
 
     }

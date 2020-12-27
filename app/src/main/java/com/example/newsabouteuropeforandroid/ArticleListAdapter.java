@@ -2,6 +2,7 @@ package com.example.newsabouteuropeforandroid;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +42,10 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
         holder.titleTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "Clicked: " + articleData.getTitle(), Toast.LENGTH_LONG).show();
+                String url = articleData.getUrl();
+                Intent i = new Intent(android.content.Intent.ACTION_VIEW,
+                        Uri.parse(url));
+                showArticlesActivity.startActivity(i);
             }
         });
     }
