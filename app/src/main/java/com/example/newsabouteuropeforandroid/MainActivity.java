@@ -3,26 +3,24 @@ package com.example.newsabouteuropeforandroid;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static String TAG = MainActivity.class.getSimpleName();
-    // private static RecyclerView countryListView;
-    private static Button changeAPIKeyButton;
-    private static Button closeAppButton;
-    private static TextView newsAPILink;
+    private static final String TAG = MainActivity.class.getSimpleName();
+    public static RadioGroup newsAgencyRadioButtonGroup;
+    public static int checkedRadioButtonID;
     public static SharedPreferences sharedPreferences;
-    private static CountryListData[] countryListData = new CountryListData[]{
+    private static final CountryListData[] countryListData = new CountryListData[]{
             new CountryListData("Albania", R.drawable.al),
             new CountryListData("Andorra", R.drawable.ad),
             new CountryListData("Austria", R.drawable.at),
@@ -32,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
             new CountryListData("Bulgaria", R.drawable.bg),
             new CountryListData("Croatia", R.drawable.hr),
             new CountryListData("Cyprus", R.drawable.cy),
-            new CountryListData("Czech-Republic", R.drawable.cz),
+            new CountryListData("Czech Republic", R.drawable.cz),
             new CountryListData("Denmark", R.drawable.dk),
             new CountryListData("Estonia", R.drawable.ee),
             new CountryListData("Finland", R.drawable.fi),
@@ -78,21 +76,27 @@ public class MainActivity extends AppCompatActivity {
 
         sharedPreferences =  this.getPreferences(MODE_PRIVATE); // Checking that api key exists or not
         if (sharedPreferences.contains("apiKey")){
-            changeAPIKeyButton = findViewById(R.id.changeAPIKey);
-            closeAppButton = findViewById(R.id.closeApp);
+            newsAgencyRadioButtonGroup = findViewById(R.id.radioGroup);
+            if (checkedRadioButtonID != 0) {
+                newsAgencyRadioButtonGroup.check(checkedRadioButtonID);
+            } else {
+                // Default setting (when app starts):
+                RadioButton reutersRadioButton = findViewById(R.id.reutersRadioButton);
+                reutersRadioButton.setChecked(true);
+            }
+
+            Button changeAPIKeyButton = findViewById(R.id.changeAPIKey);
+            Button closeAppButton = findViewById(R.id.closeApp);
 
             RecyclerView countryListView = (RecyclerView) findViewById(R.id.countryListView);
-            CountryListAdapter adapter = new CountryListAdapter(countryListData);
-            countryListView.setHasFixedSize(true);
-            countryListView.setLayoutManager(new LinearLayoutManager(this));
-            countryListView.setAdapter(adapter);
-
-            /* Get selected radio button:
-            int radioButtonID = radioButtonGroup.getCheckedRadioButtonId();
-            View radioButton = radioButtonGroup.findViewById(radioButtonID);
-            int idx = radioButtonGroup.indexOfChild(radioButton);
-            RadioButton r = (RadioButton) radioButtonGroup.getChildAt(idx);
-            String selectedtext = r.getText().toString(); */
+            CountryListAdapter adapter = new CountryListAdapter(countryListData, this);
+            try {
+                countryListView.setHasFixedSize(true);
+                countryListView.setLayoutManager(new LinearLayoutManager(this));
+                countryListView.setAdapter(adapter);
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage());
+            }
 
             changeAPIKeyButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -103,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-            newsAPILink = findViewById(R.id.poweredBy);
+            TextView newsAPILink = findViewById(R.id.poweredBy);
             newsAPILink.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
