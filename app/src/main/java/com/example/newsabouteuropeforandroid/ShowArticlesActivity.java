@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +25,7 @@ import org.json.JSONObject;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class ShowArticlesActivity extends AppCompatActivity {
     private String TAG = ShowArticlesActivity.class.getSimpleName();
@@ -140,12 +143,18 @@ public class ShowArticlesActivity extends AppCompatActivity {
             return null;
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.N)
         @Override
         protected void onPostExecute(final Void result) {
             super.onPostExecute(result);
 
+            // Sorting by date:
+            ArrayList<ArticleListData> listToSort = new ArrayList<>(articleListDatas);
+            listToSort.sort((l1, l2) -> l2.getDate().compareTo(l1.getDate()));
+
+            // Listing in UI:
             articleListView = (RecyclerView) findViewById(R.id.articleListView);
-            ArticleListAdapter adapter = new ArticleListAdapter(articleListDatas, ShowArticlesActivity.this);
+            ArticleListAdapter adapter = new ArticleListAdapter(listToSort, ShowArticlesActivity.this);
             try {
                 articleListView.setHasFixedSize(true);
                 articleListView.setLayoutManager(new LinearLayoutManager(ShowArticlesActivity.this));
