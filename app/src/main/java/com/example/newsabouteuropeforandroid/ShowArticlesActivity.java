@@ -3,6 +3,7 @@ package com.example.newsabouteuropeforandroid;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,6 +36,9 @@ public class ShowArticlesActivity extends AppCompatActivity {
     private String countryName;
     private String agencyName;
     private static RecyclerView articleListView;
+    private boolean sortingByDateDesc;
+    private boolean sortingByTitleDesc;
+    private boolean sortingByAuthorDesc;
 
     private static WeakReference<Activity> mActivityRef;
 
@@ -142,31 +146,21 @@ public class ShowArticlesActivity extends AppCompatActivity {
         protected void onPostExecute(final Void result) {
             super.onPostExecute(result);
 
-            // Sorting by date:
-            ArrayList<ArticleListData> listToSort = new ArrayList<>(articleListDatas);
-            listToSort.sort((l1, l2) -> l2.getDate().compareTo(l1.getDate()));
-
             // Delete recurring articles from list:
             Set<String> titles = new HashSet<>();
             ArrayList<ArticleListData> listWithoutDuplicates = new ArrayList<>();
-            for (ArticleListData article : listToSort){
+            for (ArticleListData article : articleListDatas){
                 if (!titles.contains(article.getTitle().split(" - ")[0])){
                     titles.add(article.getTitle().split(" - ")[0]);
                     listWithoutDuplicates.add(article);
                 }
             }
 
-            // Listing in UI:
-            if (listToSort.size() > 0){
-                articleListView = (RecyclerView) findViewById(R.id.articleListView);
-                ArticleListAdapter adapter = new ArticleListAdapter(listWithoutDuplicates, ShowArticlesActivity.this);
-                try {
-                    articleListView.setHasFixedSize(true);
-                    articleListView.setLayoutManager(new LinearLayoutManager(ShowArticlesActivity.this));
-                    articleListView.setAdapter(adapter);
-                } catch (Exception e) {
-                    Log.e(TAG, e.getMessage());
-                }
+            if (listWithoutDuplicates.size() > 0){
+                sortingByTitleDesc = false;
+                sortingByAuthorDesc = false;
+                sortingByDateDesc = true;
+                showArticles("date", listWithoutDuplicates);
             } else {
                 runOnUiThread(new Runnable() {
                     @Override
@@ -176,6 +170,82 @@ public class ShowArticlesActivity extends AppCompatActivity {
                                 Toast.LENGTH_LONG).show();
                     }
                 });
+            }
+
+        }
+
+        @RequiresApi(api = Build.VERSION_CODES.N)
+        private void showArticles(String sortBy, ArrayList<ArticleListData> articleList){
+
+            // Sorting:
+            ArrayList<ArticleListData> listToSort = new ArrayList<>(articleList);
+            switch (sortBy){
+                case "date":
+                    if (sortingByDateDesc){
+                        listToSort.sort((l1, l2) -> l2.getDate().compareTo(l1.getDate()));
+                        sortingByDateDesc = false;
+                    } else {
+                        listToSort.sort((l1, l2) -> l1.getDate().compareTo(l2.getDate()));
+                        sortingByDateDesc = true;
+                    }
+                    break;
+                case "title":
+                    if (sortingByTitleDesc){
+                        listToSort.sort((l1, l2) -> l2.getTitle().compareTo(l1.getTitle()));
+                        sortingByTitleDesc = false;
+                    } else {
+                        listToSort.sort((l1, l2) -> l1.getTitle().compareTo(l2.getTitle()));
+                        sortingByTitleDesc = true;
+                    }
+                    break;
+                case "author":
+                    if (sortingByAuthorDesc){
+                        listToSort.sort((l1, l2) -> l2.getAuthor().compareTo(l1.getAuthor()));
+                        sortingByAuthorDesc = false;
+                    } else {
+                        listToSort.sort((l1, l2) -> l1.getAuthor().compareTo(l2.getAuthor()));
+                        sortingByAuthorDesc = true;
+                    }
+                    break;
+                default:
+                    listToSort.sort((l1, l2) -> l2.getDate().compareTo(l1.getDate()));
+            }
+
+            // Listing in UI:
+            articleListView = (RecyclerView) findViewById(R.id.articleListView);
+            ArticleListAdapter adapter = new ArticleListAdapter(listToSort, ShowArticlesActivity.this);
+            try {
+                articleListView.setHasFixedSize(true);
+                articleListView.setLayoutManager(new LinearLayoutManager(ShowArticlesActivity.this));
+                articleListView.setAdapter(adapter);
+
+                TextView titleButton = findViewById(R.id.articleListHeaderTitle);
+                TextView authorButton = findViewById(R.id.articleListHeaderAuthor);
+                TextView dateButton = findViewById(R.id.articleListHeaderDate);
+                titleButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        showArticles("title", articleList);
+                        return;
+                    }
+                });
+                authorButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        showArticles("author", articleList);
+                        return;
+                    }
+                });
+                dateButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        showArticles("date", articleList);
+                        return;
+                    }
+                });
+
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage());
             }
         }
     }
