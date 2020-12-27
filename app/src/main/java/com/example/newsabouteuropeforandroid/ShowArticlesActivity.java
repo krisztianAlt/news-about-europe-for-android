@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,6 +44,8 @@ public class ShowArticlesActivity extends AppCompatActivity {
         Intent intent = getIntent();
         agencyName = intent.getExtras().getString("selectedAgency");
         countryName = intent.getExtras().getString("selectedCountry");
+        TextView articleListTitle = findViewById(R.id.articleListTitle);
+        articleListTitle.setText("Articles about " + countryName + " from " + agencyName);
         new GetArticles().execute();
 
         backToCountryListButton = findViewById(R.id.backToCountryList);
@@ -89,7 +92,6 @@ public class ShowArticlesActivity extends AppCompatActivity {
                             String url = n.getString("url");
                             String date = n.getString("publishedAt").substring(0, 10);
                             ArticleListData newArticle = new ArticleListData(title, author, url, date);
-                            Log.e(TAG, newArticle.getTitle());
                             articleListDatas.add(newArticle);
                         }
                     } else {
