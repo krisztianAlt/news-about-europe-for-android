@@ -69,7 +69,7 @@ public class ShowArticlesActivity extends AppCompatActivity {
         protected Void doInBackground(Void... arg0) {
             HttpHandler sh = new HttpHandler();
             String jsonStr = sh.getArticlesFromAPI(agencyName, countryName);
-            
+
             if (jsonStr != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(jsonStr);
@@ -166,8 +166,5 @@ public class ShowArticlesActivity extends AppCompatActivity {
                 });
             }
         }
-
     }
-
-
 }
