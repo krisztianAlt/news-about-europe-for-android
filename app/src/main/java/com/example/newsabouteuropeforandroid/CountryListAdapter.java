@@ -52,8 +52,6 @@ public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.
                 RadioButton r = (RadioButton) newsAgencyRadioButtonGroup.getChildAt(idx);
                 String selectedAgency = r.getText().toString();
 
-                Toast.makeText(view.getContext(), "Click country: " + countryData.getCountryName() + ", agency: " + selectedAgency, Toast.LENGTH_LONG).show();
-
                 // Start article listing:
                 ShowArticlesActivity.updateActivity(mainActivity);
                 Intent intent = new Intent(mainActivity.getApplicationContext(), ShowArticlesActivity.class);
