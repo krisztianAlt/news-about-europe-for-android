@@ -6,8 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,7 +16,6 @@ import java.util.ArrayList;
 public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.ViewHolder> {
 
     private ArrayList<ArticleListData> articleListDatas;
-    private RadioGroup newsAgencyRadioButtonGroup;
     private Activity showArticlesActivity;
 
     // RecyclerView recyclerView;
@@ -58,14 +55,12 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
         public TextView titleTextView;
         public TextView authorTextView;
         public TextView dateTextView;
-        //public RelativeLayout relativeLayout;
         public LinearLayout linearLayout;
         public ViewHolder(View itemView) {
             super(itemView);
             this.titleTextView = (TextView) itemView.findViewById(R.id.articleTitle);
             this.authorTextView = (TextView) itemView.findViewById(R.id.author);
             this.dateTextView = (TextView) itemView.findViewById(R.id.date);
-            //relativeLayout = (RelativeLayout)itemView.findViewById(R.id.articleListRelativeLayout);
             linearLayout = (LinearLayout) itemView.findViewById(R.id.articleListLayout);
         }
     }
