@@ -25,7 +25,9 @@ import org.json.JSONObject;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ShowArticlesActivity extends AppCompatActivity {
     private String TAG = ShowArticlesActivity.class.getSimpleName();
@@ -144,10 +146,20 @@ public class ShowArticlesActivity extends AppCompatActivity {
             ArrayList<ArticleListData> listToSort = new ArrayList<>(articleListDatas);
             listToSort.sort((l1, l2) -> l2.getDate().compareTo(l1.getDate()));
 
+            // Delete recurring articles from list:
+            Set<String> titles = new HashSet<>();
+            ArrayList<ArticleListData> listWithoutDuplicates = new ArrayList<>();
+            for (ArticleListData article : listToSort){
+                if (!titles.contains(article.getTitle().split(" - ")[0])){
+                    titles.add(article.getTitle().split(" - ")[0]);
+                    listWithoutDuplicates.add(article);
+                }
+            }
+
             // Listing in UI:
             if (listToSort.size() > 0){
                 articleListView = (RecyclerView) findViewById(R.id.articleListView);
-                ArticleListAdapter adapter = new ArticleListAdapter(listToSort, ShowArticlesActivity.this);
+                ArticleListAdapter adapter = new ArticleListAdapter(listWithoutDuplicates, ShowArticlesActivity.this);
                 try {
                     articleListView.setHasFixedSize(true);
                     articleListView.setLayoutManager(new LinearLayoutManager(ShowArticlesActivity.this));
