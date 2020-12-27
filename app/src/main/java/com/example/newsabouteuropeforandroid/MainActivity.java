@@ -3,6 +3,8 @@ package com.example.newsabouteuropeforandroid;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -86,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             Button changeAPIKeyButton = findViewById(R.id.changeAPIKey);
+            Button favoritesButton = findViewById(R.id.favoritesButton);
             Button closeAppButton = findViewById(R.id.closeApp);
 
             RecyclerView countryListView = (RecyclerView) findViewById(R.id.countryListView);
@@ -103,6 +106,17 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     Intent intent = new Intent(getApplicationContext(), HandleAPIKeyActivity.class);
                     intent.putExtra("purpose", "change");
+                    startActivity(intent);
+                }
+            });
+
+            Activity main = this;
+            favoritesButton.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    ShowArticlesActivity.updateActivity(main);
+                    Intent intent = new Intent(main.getApplicationContext(), ShowArticlesActivity.class);
+                    intent.putExtra("mode", "favorites");
                     startActivity(intent);
                 }
             });

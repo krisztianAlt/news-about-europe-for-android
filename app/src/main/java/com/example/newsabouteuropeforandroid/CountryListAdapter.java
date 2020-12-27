@@ -54,6 +54,7 @@ public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.
                 // Start article listing:
                 ShowArticlesActivity.updateActivity(mainActivity);
                 Intent intent = new Intent(mainActivity.getApplicationContext(), ShowArticlesActivity.class);
+                intent.putExtra("mode", "selection");
                 intent.putExtra("selectedAgency", selectedAgency);
                 intent.putExtra("selectedCountry", countryData.getCountryName());
                 mainActivity.startActivity(intent);
