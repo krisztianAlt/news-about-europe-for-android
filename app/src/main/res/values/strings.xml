@@ -15,8 +15,8 @@
     <string name="reutersRadioButtonText">Reuters</string>
     <string name="timeRadioButtonText">Time</string>
     <string name="backToCountryListButtonText">Back</string>
-    <string name="articleListIntroText">You can scroll the list. Please, click an article title, then the article will be opened in your browser. You can add the article to your favorites with the button at the end of the article\'s line. You can reorder the list ascending/descending by title, author and date, just touch the selected column name.</string>
-    <string name="favoriteListIntroText">You can scroll the list (if it\'s too long). Please, click an article title, then the article will be opened in your browser. You can delete an article from your favorites with the button at the end of the article\'s line. You can reorder the list ascending/descending by title, author and date, just touch the selected column name.</string>
+    <string name="articleListIntroText">You can scroll the list. Please, click an article title, then the article will be opened in your browser. You can add/delete the article to/from your favorites with the button at the end of the article\'s line. You can reorder the list ascending/descending by title, author and date, just touch the selected column name.</string>
+    <string name="favoriteListIntroText">You can scroll the list. Please, click an article title, then the article will be opened in your browser. You can delete an article from your favorites with the button at the end of the article\'s line. You can reorder the list ascending/descending by title, author and date, just touch the selected column name.</string>
     <string name="add_to_favorites">Add to favorites</string>
     <string name="articleListHeader1">Title</string>
     <string name="articleListHeader2">Author</string>

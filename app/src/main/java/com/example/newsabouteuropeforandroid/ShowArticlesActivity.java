@@ -148,7 +148,11 @@ public class ShowArticlesActivity extends AppCompatActivity {
                     });
                 }
             } else {
-                Log.e(TAG, "HERE WE ARE.");
+                FavoriteArticles favoriteArticlesHandler = new FavoriteArticles();
+                ArrayList<ArticleListData> favoriteArticles = favoriteArticlesHandler.loadFavoriteArticles();
+                if (favoriteArticles.size() > 0) {
+                    articleListDatas.addAll(favoriteArticles);
+                }
             }
 
             return null;
@@ -194,11 +198,10 @@ public class ShowArticlesActivity extends AppCompatActivity {
                     }
                 });
             }
-
         }
 
         @RequiresApi(api = Build.VERSION_CODES.N)
-        private void showArticles(String sortBy, ArrayList<ArticleListData> articleList){
+        public void showArticles(String sortBy, ArrayList<ArticleListData> articleList){
 
             // Sorting:
             ArrayList<ArticleListData> listToSort = new ArrayList<>(articleList);
@@ -234,9 +237,15 @@ public class ShowArticlesActivity extends AppCompatActivity {
                     listToSort.sort((l1, l2) -> l2.getDate().compareTo(l1.getDate()));
             }
 
+            FavoriteArticles favoriteArticlesHandler = new FavoriteArticles();
+
+            if (mode.equals("favorites")){
+                favoriteArticlesHandler.saveFavoriteArticles(listToSort);
+            }
+
             // Listing in UI:
             articleListView = (RecyclerView) findViewById(R.id.articleListView);
-            ArticleListAdapter adapter = new ArticleListAdapter(listToSort, ShowArticlesActivity.this);
+            ArticleListAdapter adapter = new ArticleListAdapter(listToSort, ShowArticlesActivity.this, mode);
             try {
                 articleListView.setHasFixedSize(true);
                 articleListView.setLayoutManager(new LinearLayoutManager(ShowArticlesActivity.this));
@@ -245,25 +254,42 @@ public class ShowArticlesActivity extends AppCompatActivity {
                 TextView titleButton = findViewById(R.id.articleListHeaderTitle);
                 TextView authorButton = findViewById(R.id.articleListHeaderAuthor);
                 TextView dateButton = findViewById(R.id.articleListHeaderDate);
+
                 titleButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        showArticles("title", articleList);
-                        return;
+                        if (mode.equals("favorites")){
+                            ArrayList<ArticleListData> freshList;
+                            freshList = favoriteArticlesHandler.loadFavoriteArticles();
+                            showArticles("title", freshList);
+                        } else {
+                            showArticles("title", articleList);
+                        }
+
                     }
                 });
                 authorButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        showArticles("author", articleList);
-                        return;
+                        if (mode.equals("favorites")){
+                            ArrayList<ArticleListData> freshList;
+                            freshList = favoriteArticlesHandler.loadFavoriteArticles();
+                            showArticles("author", freshList);
+                        } else {
+                            showArticles("author", articleList);
+                        }
                     }
                 });
                 dateButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        showArticles("date", articleList);
-                        return;
+                        if (mode.equals("favorites")){
+                            ArrayList<ArticleListData> freshList;
+                            freshList = favoriteArticlesHandler.loadFavoriteArticles();
+                            showArticles("date", freshList);
+                        } else {
+                            showArticles("date", articleList);
+                        }
                     }
                 });
 

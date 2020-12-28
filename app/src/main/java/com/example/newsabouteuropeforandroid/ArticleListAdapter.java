@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,11 +19,14 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
 
     private ArrayList<ArticleListData> articleListDatas;
     private Activity showArticlesActivity;
+    private String mode;
+    private ArticleListAdapter adapter;
 
-    // RecyclerView recyclerView;
-    public ArticleListAdapter(ArrayList<ArticleListData> articleListDatas, Activity showArticlesActivity) {
+    public ArticleListAdapter(ArrayList<ArticleListData> articleListDatas, Activity showArticlesActivity, String mode) {
         this.articleListDatas = articleListDatas;
         this.showArticlesActivity = showArticlesActivity;
+        this.mode = mode;
+        this.adapter = this;
     }
 
     @Override
@@ -39,6 +43,17 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
         holder.titleTextView.setText(articleListDatas.get(position).getTitle());
         holder.authorTextView.setText(articleListDatas.get(position).getAuthor());
         holder.dateTextView.setText(articleListDatas.get(position).getDate());
+        FavoriteArticles favoriteArticlesHandler = new FavoriteArticles();
+        boolean isArticleInFavorites = favoriteArticlesHandler.isArticleInFavorites(articleListDatas.get(position));
+        if (mode.equals("selection")){
+            if (isArticleInFavorites) {
+                holder.iconImageView.setImageResource(R.drawable.favorite_icon_star_full);
+            } else {
+                holder.iconImageView.setImageResource(R.drawable.favorite_icon_star);
+            }
+        } else if (mode.equals("favorites")){
+            holder.iconImageView.setImageResource(R.drawable.exit);
+        }
         holder.titleTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,6 +61,52 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
                 Intent i = new Intent(android.content.Intent.ACTION_VIEW,
                         Uri.parse(url));
                 showArticlesActivity.startActivity(i);
+            }
+        });
+        holder.iconImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String message;
+                String status;
+                if (mode.equals("selection")){
+                    if (isArticleInFavorites) {
+                        status = favoriteArticlesHandler.deleteArticle(articleListDatas.get(position));
+                        if (status.equals("ok")){
+                            message = "Deleted from favorites.";
+                            adapter.notifyDataSetChanged();
+                        } else {
+                            message = "Sorry, problem occurred.";
+                        }
+                    } else {
+                        status = favoriteArticlesHandler.addArticle(articleListDatas.get(position));
+                        if (status.equals("ok")){
+                            message = "Added to favorites.";
+                            adapter.notifyDataSetChanged();
+                        } else {
+                            message = "Sorry, problem occurred.";
+                        }
+
+                    }
+                } else {
+                    status = favoriteArticlesHandler.deleteArticle(articleListDatas.get(position));
+                    if (status.equals("ok")){
+                        articleListDatas.clear();
+                        articleListDatas = favoriteArticlesHandler.loadFavoriteArticles();
+                        message = "Deleted.";
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        message = "Sorry, problem occurred.";
+                    }
+                }
+
+                showArticlesActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(showArticlesActivity.getApplicationContext(),
+                                message,
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         });
     }
@@ -59,12 +120,14 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
         public TextView titleTextView;
         public TextView authorTextView;
         public TextView dateTextView;
+        public ImageView iconImageView;
         public LinearLayout linearLayout;
         public ViewHolder(View itemView) {
             super(itemView);
             this.titleTextView = (TextView) itemView.findViewById(R.id.articleTitle);
             this.authorTextView = (TextView) itemView.findViewById(R.id.author);
             this.dateTextView = (TextView) itemView.findViewById(R.id.date);
+            this.iconImageView = (ImageView) itemView.findViewById(R.id.addFavorites);
             linearLayout = (LinearLayout) itemView.findViewById(R.id.articleListLayout);
         }
     }
