@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/articleListLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginBottom="4dp">
+
+    <TextView
+        android:id="@+id/articleTitle"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.50"
+        android:layout_width="0dp"
+        android:layout_marginRight="5dp"/>
+
+    <TextView
+        android:id="@+id/author"
+        android:layout_width="0dp"
+        android:layout_weight="0.20"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="0dp"
+        android:layout_weight="0.20"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/addFavorites"
+        android:layout_width="0dp"
+        android:layout_weight="0.10"
+        android:layout_height="30dp"
+        android:src="@drawable/favorite_icon"
+        android:contentDescription="@string/add_to_favorites" />
+
+</LinearLayout>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HandleAPIKeyActivity">
+
+    <TextView
+        android:id="@+id/getApiKeyInfoText"
+        android:layout_width="299dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/getApiKeyInfoText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/visitNewsAPIWebsite"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:background="@drawable/rounded_button"
+        android:text="@string/visitNewsAPIWebsiteButtonText"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/getApiKeyInfoText"
+        app:layout_constraintEnd_toEndOf="@+id/saveNewAPIKey"
+        app:layout_constraintStart_toStartOf="@+id/saveNewAPIKey"
+        app:layout_constraintTop_toTopOf="@+id/getApiKeyInfoText"
+        app:layout_constraintVertical_bias="0.506" />
+
+    <TextView
+        android:id="@+id/currentAPIKey"
+        android:layout_width="343dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="8dp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@+id/getApiKeyInfoText"
+        app:layout_constraintTop_toBottomOf="@+id/getApiKeyInfoText" />
+
+    <EditText
+        android:id="@+id/newAPIKey"
+        android:layout_width="343dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="8dp"
+        android:hint="@string/hint"
+        android:lines="1"
+        android:maxLines="1"
+        android:singleLine="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/currentAPIKey"
+        app:layout_constraintTop_toBottomOf="@+id/currentAPIKey"
+        app:layout_constraintVertical_bias="0.029" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/saveNewAPIKey"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:background="@drawable/rounded_button_green"
+        android:text="@string/saveNewAPIKeyText"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/newAPIKey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toEndOf="@+id/newAPIKey"
+        app:layout_constraintTop_toTopOf="@+id/newAPIKey"
+        app:layout_constraintVertical_bias="0.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
