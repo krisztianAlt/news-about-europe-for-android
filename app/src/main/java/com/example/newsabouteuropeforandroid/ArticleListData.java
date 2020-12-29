@@ -1,5 +1,7 @@
 package com.example.newsabouteuropeforandroid;
 
+import androidx.annotation.Nullable;
+
 public class ArticleListData {
 
     private String title;
@@ -45,5 +47,31 @@ public class ArticleListData {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if(obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
+        ArticleListData article = (ArticleListData) obj;
+        return (this.title.equals(article.title) && this.author.equals(article.author) &&
+                this.date.equals(article.date));
+    }
+
+    @Override
+    public int hashCode() {
+        return title.length();
+    }
+
+    @Override
+    public String toString() {
+        return "Article{" +
+                "title=" + title +
+                ", author='" + author +
+                ", date=" + date + "}";
     }
 }

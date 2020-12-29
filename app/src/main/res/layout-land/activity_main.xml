@@ -10,10 +10,14 @@
         android:id="@+id/usageInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="@string/usageInfo"
+        app:layout_constraintBottom_toTopOf="@+id/poweredBy"
+        app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.028" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
@@ -23,7 +27,7 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="@+id/countryListView"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usageInfo">
+        app:layout_constraintTop_toTopOf="@+id/countryListView">
 
         <RadioButton
             android:id="@+id/bbcNewsRadioButton"
@@ -71,58 +75,57 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/countryListView"
-        android:layout_width="154dp"
-        android:layout_height="330dp"
+        android:layout_width="181dp"
+        android:layout_height="172dp"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/border"
         android:scrollbars="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/poweredBy"
+        app:layout_constraintEnd_toEndOf="@+id/usageInfo"
+        app:layout_constraintHorizontal_bias="0.8"
         app:layout_constraintStart_toEndOf="@+id/radioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/usageInfo" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/favoritesButton"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:background="@drawable/rounded_button"
+        android:text="@string/favorites"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/closeApp"
+        app:layout_constraintEnd_toEndOf="@+id/closeApp"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/closeApp"
+        app:layout_constraintTop_toBottomOf="@+id/changeAPIKey" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/changeAPIKey"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:background="@drawable/rounded_button"
+        android:text="@string/Button2Text"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/favoritesButton"
+        app:layout_constraintEnd_toEndOf="@+id/favoritesButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/favoritesButton"
         app:layout_constraintTop_toBottomOf="@+id/usageInfo" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/closeApp"
         android:layout_width="wrap_content"
         android:layout_height="34dp"
-        android:layout_marginRight="8dp"
         android:background="@drawable/rounded_button_grey"
         android:text="@string/closeAppButtonText"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/poweredBy"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/countryListView" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/favoritesButton"
-        android:layout_width="wrap_content"
-        android:layout_height="34dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:text="@string/favorites"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/poweredBy"
-        app:layout_constraintEnd_toStartOf="@+id/closeApp"
-        app:layout_constraintStart_toEndOf="@+id/changeAPIKey"
-        app:layout_constraintTop_toBottomOf="@+id/countryListView"
-        android:background="@drawable/rounded_button"/>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/changeAPIKey"
-        android:layout_width="wrap_content"
-        android:layout_height="34dp"
-        android:layout_marginLeft="8dp"
-        android:background="@drawable/rounded_button"
-        android:text="@string/Button2Text"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/poweredBy"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/countryListView" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/countryListView"
+        app:layout_constraintTop_toBottomOf="@+id/favoritesButton" />
 
     <TextView
         android:id="@+id/poweredBy"
