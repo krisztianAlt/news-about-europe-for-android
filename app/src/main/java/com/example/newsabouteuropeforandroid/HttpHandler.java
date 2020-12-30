@@ -1,21 +1,15 @@
 package com.example.newsabouteuropeforandroid;
 
 import android.util.Log;
-
-import org.json.JSONObject;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 
 public class HttpHandler {
 
@@ -33,7 +27,7 @@ public class HttpHandler {
             countryName = countryName.replace(" ", "-");
         }
 
-        // API request:
+        // Sending request to API:
         String apiKey = MainActivity.sharedPreferences.getString ("apiKey", "api key");
         String urlString = "https://newsapi.org/v2/everything?q=\"" + countryName +
                 "\"&sources=" + agencyName +
@@ -67,7 +61,6 @@ public class HttpHandler {
                     conn.disconnect();
                 }
             }
-            Log.e(TAG, response);
         } catch (MalformedURLException ex) {
             Log.e(TAG, "MalformedURLException: " + ex.getMessage());
         } catch (ProtocolException ex) {
@@ -149,5 +142,4 @@ public class HttpHandler {
 
         return sb.toString();
     }
-
 }
