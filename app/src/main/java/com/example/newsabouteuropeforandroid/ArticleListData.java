@@ -14,7 +14,6 @@ public class ArticleListData {
         this.author = author;
         this.url = url;
         this.date = date;
-
     }
 
     public String getTitle() {
