@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">News About Europe for Android</string>
+    <string name="Button2Text">Change API Key</string>
+    <string name="closeAppButtonText">Quit</string>
+    <string name="poweredByText">Powered by <strong><u>News API</u></strong></string>
+    <string name="saveNewAPIKeyText">Save new API key</string>
+    <string name="hint">Type here new API key</string>
+    <string name="getApiKeyInfoText">In order to get article datas, you must require an API key from News API. Please, visit News API\'s website, select the totally free \"Developer\" plan (or any other, but those are not free), and register for the API key. You will get it in e-mail. Please, type the key below!</string>
+    <string name="visitNewsAPIWebsiteButtonText">Visit News API</string>
+    <string name="usageInfo">Please, select news agency and country.</string>
+    <string name="bbcNewsRadioButtonText">BBC News</string>
+    <string name="cbcNewsRadioButtonText">CBC News</string>
+    <string name="cnnRadioButtonText">CNN</string>
+    <string name="independentRadioButtonText">Independent</string>
+    <string name="reutersRadioButtonText">Reuters</string>
+    <string name="timeRadioButtonText">Time</string>
+    <string name="backToCountryListButtonText">Back</string>
+    <string name="articleListIntroText">You can scroll the list. Please, click an article title, then the article will be opened in your browser. You can add/delete the article to/from your favorites with the heart icon at the end of the article\'s line. You can reorder the list ascending/descending by title, author and date, just touch the selected column name.</string>
+    <string name="favoriteListIntroText">You can scroll the list. Please, click an article title, then the article will be opened in your browser. You can delete an article from your favorites with the red icon at the end of the article\'s line. You can reorder the list ascending/descending by title, author and date, just touch the selected column name.</string>
+    <string name="add_to_favorites">Add to favorites</string>
+    <string name="articleListHeader1">Title</string>
+    <string name="articleListHeader2">Author</string>
+    <string name="articleListHeader3">Date</string>
+    <string name="articleListTitle">Title</string>
+    <string name="favorites">Favorites</string>
 </resources>
