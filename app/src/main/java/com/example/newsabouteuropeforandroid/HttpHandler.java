@@ -61,7 +61,6 @@ public class HttpHandler {
                     conn.disconnect();
                 }
             }
-            Log.e(TAG, response);
         } catch (MalformedURLException ex) {
             Log.e(TAG, "MalformedURLException: " + ex.getMessage());
         } catch (ProtocolException ex) {
