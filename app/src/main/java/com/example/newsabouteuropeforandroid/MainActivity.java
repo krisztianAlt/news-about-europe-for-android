@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        RadioButton reutersRadioButton = findViewById(R.id.reutersRadioButton);
 
         sharedPreferences =  this.getPreferences(MODE_PRIVATE);
         // Checking that api key exists or not:
@@ -83,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
                 newsAgencyRadioButtonGroup.check(checkedRadioButtonID);
             } else {
                 // Default setting (when app starts):
-                RadioButton reutersRadioButton = findViewById(R.id.reutersRadioButton);
                 reutersRadioButton.setChecked(true);
             }
 
@@ -140,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
             });
 
         } else {
+            reutersRadioButton.setChecked(true);
             HandleAPIKeyActivity.updateActivity(this);
             Intent intent = new Intent(getApplicationContext(), HandleAPIKeyActivity.class);
             intent.putExtra("purpose", "add");
