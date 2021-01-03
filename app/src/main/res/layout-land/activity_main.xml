@@ -106,7 +106,7 @@
         android:layout_width="wrap_content"
         android:layout_height="34dp"
         android:background="@drawable/rounded_button"
-        android:text="@string/Button2Text"
+        android:text="@string/APIKeyButtonText"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/favoritesButton"
         app:layout_constraintEnd_toEndOf="@+id/favoritesButton"
