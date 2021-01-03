@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -77,67 +78,17 @@ public class MainActivity extends AppCompatActivity {
         RadioButton reutersRadioButton = findViewById(R.id.reutersRadioButton);
 
         sharedPreferences =  this.getPreferences(MODE_PRIVATE);
+
+        newsAgencyRadioButtonGroup = findViewById(R.id.radioGroup);
+        if (checkedRadioButtonID != 0) {
+            newsAgencyRadioButtonGroup.check(checkedRadioButtonID);
+        } else {
+            // Default setting (when app starts):
+            reutersRadioButton.setChecked(true);
+        }
+
         // Checking that api key exists or not:
-        if (sharedPreferences.contains("apiKey")){
-            newsAgencyRadioButtonGroup = findViewById(R.id.radioGroup);
-            if (checkedRadioButtonID != 0) {
-                newsAgencyRadioButtonGroup.check(checkedRadioButtonID);
-            } else {
-                // Default setting (when app starts):
-                reutersRadioButton.setChecked(true);
-            }
-
-            Button changeAPIKeyButton = findViewById(R.id.changeAPIKey);
-            Button favoritesButton = findViewById(R.id.favoritesButton);
-            Button closeAppButton = findViewById(R.id.closeApp);
-
-            RecyclerView countryListView = (RecyclerView) findViewById(R.id.countryListView);
-            CountryListAdapter adapter = new CountryListAdapter(countryListData, this);
-            try {
-                countryListView.setHasFixedSize(true);
-                countryListView.setLayoutManager(new LinearLayoutManager(this));
-                countryListView.setAdapter(adapter);
-            } catch (Exception e) {
-                Log.e(TAG, e.getMessage());
-            }
-
-            changeAPIKeyButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getApplicationContext(), HandleAPIKeyActivity.class);
-                    intent.putExtra("purpose", "change");
-                    startActivity(intent);
-                }
-            });
-
-            Activity main = this;
-            favoritesButton.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v) {
-                    ShowArticlesActivity.updateActivity(main);
-                    Intent intent = new Intent(main.getApplicationContext(), ShowArticlesActivity.class);
-                    intent.putExtra("mode", "favorites");
-                    startActivity(intent);
-                }
-            });
-
-            TextView newsAPILink = findViewById(R.id.poweredBy);
-            newsAPILink.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(android.content.Intent.ACTION_VIEW,
-                            Uri.parse("https://newsapi.org/"));
-                    startActivity(i);
-                }
-            });
-
-            closeAppButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    MainActivity.this.finish();
-                    System.exit(0);
-                }
-            });
+        /*if (sharedPreferences.contains("apiKey")){
 
         } else {
             reutersRadioButton.setChecked(true);
@@ -145,7 +96,71 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), HandleAPIKeyActivity.class);
             intent.putExtra("purpose", "add");
             startActivity(intent);
-        };
+        };*/
 
+        Button apiKeyButton = findViewById(R.id.changeAPIKey);
+        Button favoritesButton = findViewById(R.id.favoritesButton);
+        Button closeAppButton = findViewById(R.id.closeApp);
+
+        RecyclerView countryListView = (RecyclerView) findViewById(R.id.countryListView);
+        CountryListAdapter adapter = new CountryListAdapter(countryListData, this);
+        try {
+            countryListView.setHasFixedSize(true);
+            countryListView.setLayoutManager(new LinearLayoutManager(this));
+            countryListView.setAdapter(adapter);
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
+
+        apiKeyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), HandleAPIKeyActivity.class);
+                intent.putExtra("purpose", "change");
+                startActivity(intent);
+            }
+        });
+
+        Activity main = this;
+        favoritesButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                // Checking that api key exists or not:
+                if (sharedPreferences.contains("apiKey")){
+                    ShowArticlesActivity.updateActivity(main);
+                    Intent intent = new Intent(main.getApplicationContext(), ShowArticlesActivity.class);
+                    intent.putExtra("mode", "favorites");
+                    startActivity(intent);
+                } else {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String messageToUse = "API key is needed. Please, touch 'API Key' button";
+                            Toast.makeText(getApplicationContext(),
+                                    messageToUse,
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
+            }
+        });
+
+        TextView newsAPILink = findViewById(R.id.poweredBy);
+        newsAPILink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(android.content.Intent.ACTION_VIEW,
+                        Uri.parse("https://newsapi.org/"));
+                startActivity(i);
+            }
+        });
+
+        closeAppButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.this.finish();
+                System.exit(0);
+            }
+        });
     }
 }
