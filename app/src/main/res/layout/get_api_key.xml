@@ -65,11 +65,22 @@
         android:background="@drawable/rounded_button_green"
         android:text="@string/saveNewAPIKeyText"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/backToMainScreen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newAPIKey"
-        app:layout_constraintVertical_bias="0.547" />
+        app:layout_constraintTop_toBottomOf="@+id/newAPIKey" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/backToMainScreen"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/rounded_button_grey"
+        android:text="@string/backToCountryListButtonText"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/saveNewAPIKey"
+        app:layout_constraintStart_toStartOf="@+id/saveNewAPIKey" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -42,7 +42,7 @@ public class HandleAPIKeyActivity extends AppCompatActivity {
         if (purpose.equals("change")) {
             TextView currentAPIKey = findViewById(R.id.currentAPIKey);
             currentAPIKey.setVisibility(View.VISIBLE);
-            currentAPIKey.setText("Current API key: \n" + MainActivity.sharedPreferences.getString ("apiKey", "api key"));
+            currentAPIKey.setText("Current API key: \n" + MainActivity.sharedPreferences.getString ("apiKey", "API key is needed"));
         }
 
         if (apiKeyFromUser != null) {
@@ -78,6 +78,14 @@ public class HandleAPIKeyActivity extends AppCompatActivity {
             }
         });
 
+        Button backToMainScreenButton = findViewById(R.id.backToMainScreen);
+        backToMainScreenButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mActivityRef.get().recreate();
+                finish();
+            }
+        });
     }
 
     private class AddNewAPIKey extends AsyncTask<Void, Void, Void> {

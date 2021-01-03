@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -87,17 +88,6 @@ public class MainActivity extends AppCompatActivity {
             reutersRadioButton.setChecked(true);
         }
 
-        // Checking that api key exists or not:
-        /*if (sharedPreferences.contains("apiKey")){
-
-        } else {
-            reutersRadioButton.setChecked(true);
-            HandleAPIKeyActivity.updateActivity(this);
-            Intent intent = new Intent(getApplicationContext(), HandleAPIKeyActivity.class);
-            intent.putExtra("purpose", "add");
-            startActivity(intent);
-        };*/
-
         Button apiKeyButton = findViewById(R.id.changeAPIKey);
         Button favoritesButton = findViewById(R.id.favoritesButton);
         Button closeAppButton = findViewById(R.id.closeApp);
@@ -112,16 +102,24 @@ public class MainActivity extends AppCompatActivity {
             Log.e(TAG, e.getMessage());
         }
 
+        Activity main = this;
+
         apiKeyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                HandleAPIKeyActivity.updateActivity(main);
                 Intent intent = new Intent(getApplicationContext(), HandleAPIKeyActivity.class);
-                intent.putExtra("purpose", "change");
+                // Checking that api key exists or not:
+                if (sharedPreferences.contains("apiKey")){
+                    intent.putExtra("purpose", "change");
+                } else {
+                    intent.putExtra("purpose", "add");
+                }
+
                 startActivity(intent);
             }
         });
 
-        Activity main = this;
         favoritesButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
