@@ -9,18 +9,19 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import static com.example.newsabouteuropeforandroid.MainActivity.checkedRadioButtonID;
 import static com.example.newsabouteuropeforandroid.MainActivity.newsAgencyRadioButtonGroup;
+import static com.example.newsabouteuropeforandroid.MainActivity.sharedPreferences;
 
 public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.ViewHolder>{
 
     private CountryListData[] countryListData;
     private Activity mainActivity;
 
-    // RecyclerView recyclerView;
     public CountryListAdapter(CountryListData[] listData, Activity main) {
         this.countryListData = listData;
         this.mainActivity = main;
@@ -42,23 +43,34 @@ public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Checking that api key exists or not:
+                if (sharedPreferences.contains("apiKey")){
+                    //Get selected radio button (selected news agency):
+                    int radioButtonID = newsAgencyRadioButtonGroup.getCheckedRadioButtonId();
+                    View radioButton = newsAgencyRadioButtonGroup.findViewById(radioButtonID);
+                    int idx = newsAgencyRadioButtonGroup.indexOfChild(radioButton);
+                    RadioButton r = (RadioButton) newsAgencyRadioButtonGroup.getChildAt(idx);
+                    String selectedAgency = r.getText().toString();
+                    checkedRadioButtonID = radioButtonID;
 
-                //Get selected radio button (selected news agency):
-                int radioButtonID = newsAgencyRadioButtonGroup.getCheckedRadioButtonId();
-                View radioButton = newsAgencyRadioButtonGroup.findViewById(radioButtonID);
-                int idx = newsAgencyRadioButtonGroup.indexOfChild(radioButton);
-                RadioButton r = (RadioButton) newsAgencyRadioButtonGroup.getChildAt(idx);
-                String selectedAgency = r.getText().toString();
-                checkedRadioButtonID = radioButtonID;
-
-                // Start article listing:
-                ShowArticlesActivity.updateActivity(mainActivity);
-                Intent intent = new Intent(mainActivity.getApplicationContext(), ShowArticlesActivity.class);
-                intent.putExtra("mode", "selection");
-                intent.putExtra("selectedAgency", selectedAgency);
-                intent.putExtra("selectedCountry", countryData.getCountryName());
-                mainActivity.startActivity(intent);
-
+                    // Start article listing:
+                    ShowArticlesActivity.updateActivity(mainActivity);
+                    Intent intent = new Intent(mainActivity.getApplicationContext(), ShowArticlesActivity.class);
+                    intent.putExtra("mode", "selection");
+                    intent.putExtra("selectedAgency", selectedAgency);
+                    intent.putExtra("selectedCountry", countryData.getCountryName());
+                    mainActivity.startActivity(intent);
+                } else {
+                    mainActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String messageToUse = "API key is needed. Please, touch 'API Key' button";
+                            Toast.makeText(mainActivity.getApplicationContext(),
+                                    messageToUse,
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
             }
         });
     }
